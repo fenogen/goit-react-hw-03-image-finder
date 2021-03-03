@@ -16,7 +16,8 @@ class ImageGallery extends Component {
                         srcLarge={item.largeImageURL}
                     />))}
         </ul>
-        <Button />
+        <Button
+          fnLoadMore={this.props.fnLoadMore}/>
       </>
     );
   }

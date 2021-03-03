@@ -3,15 +3,15 @@ import React from 'react';
 
 import style from './Button.module.css';
 
-function Button(props) {
+function Button({fnLoadMore}) {
   return (
     <div className={style.Button__container}>
-      <button className={style.Button} type="button">
+          <button
+              onClick={fnLoadMore}
+              className={style.Button}
+              type="button">
         Load more
       </button>
-      {/* <button className={style.Button} type="button">
-        Open
-      </button> */}
     </div>
   );
 }

@@ -8,7 +8,7 @@ function ImageGalleryItem({ src, srcLarge }) {
         <li className={style.ImageGalleryItem}>
             <img
                 src={src}
-                data-imgLarge={srcLarge}
+                data-imglarge={srcLarge}
                 alt="photo"
                 className={style.ImageGalleryItem__image} />
         </li>
