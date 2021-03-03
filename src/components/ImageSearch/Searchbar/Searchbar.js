@@ -12,8 +12,8 @@ function Searchbar() {
         <input
           className={style.SearchForm__input}
           type="text"
-          autocomplete="off"
-          autofocus
+          // autocomplete="off"
+          // autofocus
           placeholder="Search images and photos"
         />
       </form>
