@@ -1,5 +1,3 @@
-
-import React from 'react'
 import axios from 'axios'
 
 const API = {
@@ -13,4 +11,5 @@ const getImage = (page, search) => {
     return axios.get(`https://pixabay.com/api/?image_type=photo&key=${API.key}&page=${page}&per_page=${API.onPage}&orientation=horizontal&q=${search}`).then(responce => responce.data.hits);
 }
 
-export default { getImage }
+export { getImage }
+// export default { getImage }

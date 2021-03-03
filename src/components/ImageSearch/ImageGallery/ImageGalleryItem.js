@@ -8,8 +8,8 @@ function ImageGalleryItem({ src, srcLarge }) {
         <li className={style.ImageGalleryItem}>
             <img
                 src={src}
-                data-imglarge={srcLarge}
-                alt="photo"
+                // data-imglarge={srcLarge}
+                alt=" "
                 className={style.ImageGalleryItem__image} />
         </li>
     )
