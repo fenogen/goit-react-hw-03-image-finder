@@ -12,4 +12,3 @@ const getImage = (page, search) => {
 }
 
 export { getImage }
-// export default { getImage }

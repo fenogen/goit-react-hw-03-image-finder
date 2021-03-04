@@ -1,5 +1,5 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 import style from './ImageGallery.module.css';
 
@@ -8,7 +8,7 @@ function ImageGalleryItem({ src, srcLarge }) {
         <li className={style.ImageGalleryItem}>
             <img
                 src={src}
-                // data-imglarge={srcLarge}
+                data-img={srcLarge}
                 alt=" "
                 className={style.ImageGalleryItem__image} />
         </li>
@@ -16,7 +16,8 @@ function ImageGalleryItem({ src, srcLarge }) {
 }
 
 ImageGalleryItem.propTypes = {
-
+    src: PropTypes.string,
+    srcLarge: PropTypes.string,
 }
 
 export default ImageGalleryItem

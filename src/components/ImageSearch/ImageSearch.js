@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import Loader from 'react-loader-spinner';
 
-// import api from '../../api/ApiSearchImage';
 import * as api from '../../api/ApiSearchImage';
-
-import Button from './Button/Button';
-// import Modal from './Modal/Modal'
 
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
+import Button from './Button/Button';
+import Modal from './Modal/Modal';
 
-// ///////// Скрол не подключен!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 class ImageSearch extends Component {
   state = {
@@ -19,6 +16,8 @@ class ImageSearch extends Component {
     currentPage: 1,
     error: null,
     loader: false,
+    showModal: false,
+    srcLarge: '',
   };
 
   // --------------------------------------------> Ф-я запуска поиска после обновления search в State:
@@ -35,19 +34,24 @@ class ImageSearch extends Component {
       console.log('Ф-я Дозагрузки(№2)');
       this.fnGetCollection();
     }
+
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth',
+    });
   }
 
   // --------------------------------------------> Ф-я запроса на бэкенд
   fnGetCollection = () => {
     console.log('Go to backend');
     this.setState({
-      loader: true,                                         //---> Включили Spiner
+      loader: true, //---> Включили Spiner
     });
     api
       .getImage(this.state.currentPage, this.state.search)
       .then(data => {
         this.setState({
-          loader: false,                                   //---> Выключили Spiner
+          loader: false, //---> Выключили Spiner
           collection: [...this.state.collection, ...data], //---> Распыляем что бы на экране было больше 12 фото после дозагрузки
         });
         console.log(this.state.collection);
@@ -60,9 +64,9 @@ class ImageSearch extends Component {
     console.log(`I am ready for search "${inputValue}"`);
     this.setState({
       search: inputValue,
-      currentPage: 1,                                     //---> Сбросили для дозагрузки
-      error: null,                                        //---> Сбросили для дозагрузки
-      collection: [],                                     //---> Сбросили для дозагрузки
+      currentPage: 1, //---> Сбросили для дозагрузки
+      error: null, //---> Сбросили для дозагрузки
+      collection: [], //---> Сбросили для дозагрузки
     });
   };
 
@@ -74,16 +78,33 @@ class ImageSearch extends Component {
     }));
   };
 
+    // --------------------------------------------> Ф-я открытия модального окна
+  fnModalOpen = imgLarge => {
+    console.log('Modal Open');
+    this.setState({
+      srcLarge: imgLarge,
+      showModal: true,
+    });
+  };
+
+  // --------------------------------------------> Ф-я закрытия модального окна
+
+  fnTogleModal = () => {
+    this.setState(prevState => ({
+      showModal: !prevState.showModal,
+    }));
+  };
+
   render() {
     return (
       <div>
         {/* ----------------------------Searchbar------------------------------- */}
         <Searchbar fnSearch={this.fnSearch} />
-        {/* ----------------------------ImageGallery------------------------------- */}
+        {/* ----------------------------ImageGallery---------------------------- */}
         {this.state.collection.length > 0 && (
           <ImageGallery
             collection={this.state.collection}
-            fnLoadMore={this.fnLoadMore}
+            fnModalOpen={this.fnModalOpen}
           />
         )}
         {/* ----------------------------Loader-1------------------------------- */}
@@ -115,13 +136,33 @@ class ImageSearch extends Component {
             }}
             // timeout={3000} //3 secs
           />
-            ) : null}
-        {/* ----------------------------Button------------------------------- */}
+        ) : null}
+        {/* ----------------------------Button------------------------------ */}
         {this.state.collection.length > 0 && (
           <Button fnLoadMore={this.fnLoadMore} />
         )}
-
-        {/* <Modal/> */}
+        {/* ----------------------------Modal------------------------------- */}
+        {this.state.showModal && (
+          <Modal fnTogleModal={this.fnTogleModal}>
+            <Loader
+              type="BallTriangle"
+              color="#00BFFF"
+              height={150}
+              width={150}
+              timeout={1500} //2 secs
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-75px, -75px)',
+              }}
+            />
+              <img
+                src={this.state.srcLarge}
+                alt=" "
+            />
+          </Modal>
+        )}
       </div>
     );
   }

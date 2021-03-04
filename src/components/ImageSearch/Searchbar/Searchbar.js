@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import style from './Searchbar.module.css';
 
 function Searchbar({fnSearch}) {
@@ -7,7 +8,6 @@ function Searchbar({fnSearch}) {
     e.preventDefault()
     fnSearch(e.target.lastChild.value)
   }
-
 
 
   return (
@@ -33,4 +33,12 @@ function Searchbar({fnSearch}) {
   );
 }
 
+Searchbar.propTypes = {
+  fnSearch: PropTypes.func,
+}
+
 export default Searchbar;
+
+
+
+

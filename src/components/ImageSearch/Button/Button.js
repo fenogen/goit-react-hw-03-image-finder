@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 import style from './Button.module.css';
 
@@ -16,6 +16,8 @@ function Button({fnLoadMore}) {
   );
 }
 
-Button.propTypes = {};
+Button.propTypes = {
+  fnLoadMore: PropTypes.func,
+};
 
 export default Button;
